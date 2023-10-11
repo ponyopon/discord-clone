@@ -5,12 +5,12 @@ import {getAuth, GoogleAuthProvider} from 'firebase/auth'
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyCV3JozVONX9uMlYFc1TM4uzZ_B_Zi5kZU",
-  authDomain: "upheld-sublime-352607.firebaseapp.com",
-  projectId: "upheld-sublime-352607",
-  storageBucket: "upheld-sublime-352607.appspot.com",
-  messagingSenderId: "246186426901",
-  appId: "1:246186426901:web:56e9148401c9d6255d841c"
+  apiKey: "AIzaSyCf_nqcOM0ZqiMV8F0cIogvL860uZ6T2hM",
+  authDomain: "discord-clone-f1e42.firebaseapp.com",
+  projectId: "discord-clone-f1e42",
+  storageBucket: "discord-clone-f1e42.appspot.com",
+  messagingSenderId: "152036325273",
+  appId: "1:152036325273:web:c3d0af43d09f6561d00508"
 };
 
 // Initialize Firebase
