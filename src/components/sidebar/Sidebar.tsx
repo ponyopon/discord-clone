@@ -44,7 +44,7 @@ const Sidebar = () => {
             <div className='sidebarRight'>
                 <div className='sidebarTop'>
                     <h3>discord</h3>
-                    <ExpandMoreIcon />
+                    <ExpandMoreIcon onClick={()=>addChannel()}/>
                 </div>
 
                 <div className='sidebarChannels'>
@@ -53,11 +53,8 @@ const Sidebar = () => {
                             <ExpandMoreIcon />
                             <h4>プログラミング</h4>
                             
-                            
-
-
                         </div>
-                        <AddIcon className='sidebarAddIcon' onClick={() => addChannel()}/>
+                        <AddIcon className='sidebarAddIcon' onClick={()=>addChannel()}/>
                     </div>
 
                     <div className='sidebarChannelList'>
