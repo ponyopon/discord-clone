@@ -7,42 +7,20 @@ import MoodIcon from '@mui/icons-material/Mood';
 import GifIcon from '@mui/icons-material/Gif';
 import ChatMessage from './ChatMessage';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { CollectionReference, DocumentData, DocumentReference, Timestamp, addDoc, collection, onSnapshot, serverTimestamp } from 'firebase/firestore';
+import { CollectionReference, DocumentData, DocumentReference, Timestamp, addDoc, collection, onSnapshot, orderBy, query, serverTimestamp } from 'firebase/firestore';
 import { db } from '../../firebase';
+import useSubCollection from '../../hooks/useSubCollection';
 
-interface Messages {
-    timestamp: Timestamp,
-    message: string,
-    user : null | {
-        uid:string;
-        photo:string;
-        email:string;
-        displayName:string;
-    }
-}
+
 
 const Chat = () => {
     const [inputText, setInputText] = useState<string>("")
-    const [messages, setMessages] = useState<Messages[]>([])
     const channelName = useAppSelector((state)=>state.channel.channelName)
     const channelId = useAppSelector((state)=>state.channel.channelId)
     const user = useAppSelector((state)=>state.user.user)
+    const {subDocuments: messages} = useSubCollection("channels", "messages")
 
-    useEffect(() => {
 
-        let collectionRef = collection(db,"channels", String(channelId))
-        onSnapshot(collectionRef,(snapshot) => {
-            let results :Messages[]= []
-            snapshot.docs.forEach((doc) => {
-                results.push({
-                    timestamp:doc.data().timestamp,
-                    message:doc.data().message,
-                    user:doc.data().user,
-                })
-            })
-            setMessages(results)
-        })
-    },[])
     const sendMessage = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.preventDefault()
         //channelsコレクションのmessageコレクションの中身メッセージ情報を入れる
@@ -57,21 +35,26 @@ const Chat = () => {
                 timestamp:serverTimestamp(),
                 user:user
             })
-            console.log(docRef)
+            setInputText("")
     }
   return (
     <div className='chat'>
         <ChatHeader channelName={channelName}/>
         <div className='chatMessages'>
-            <ChatMessage />
-            <ChatMessage />
-            <ChatMessage />
-            <ChatMessage />
+            {messages.map((message, index) => (
+                <ChatMessage key={index} 
+                message={message.message}
+                timestamp={message.timestamp}
+                user={message.user}
+                 />
+            ))}
+            
+
         </div>
         <div className='chatInput'>
             <AddCircleOutlineIcon />
             <form>
-            <input type='text' placeholder='送信' onChange={(e: React.ChangeEvent<HTMLInputElement>)=> setInputText(e.target.value)}></input>
+            <input type='text' placeholder='送信' onChange={(e: React.ChangeEvent<HTMLInputElement>)=> setInputText(e.target.value)} value={inputText}></input>
             <button type='submit' className='chatInputButton' onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => sendMessage(e)}>
                 送信
             </button>

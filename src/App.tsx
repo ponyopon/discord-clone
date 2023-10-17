@@ -21,7 +21,6 @@ const dispatch = useDispatch();
 
   useEffect(() => {
     auth.onAuthStateChanged((loginUser) => {
-      console.log(loginUser)
       if(loginUser) {
         dispatch(login({
           uid: loginUser.uid,

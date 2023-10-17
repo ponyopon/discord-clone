@@ -12,7 +12,6 @@ type props = {
 const SidebarChannel = (props:props) => {
   const {id, channel} = props
   const dispatch = useAppDispatch()
-  console.log(channel)
   
   return (
     <div className='sidebarChannel ' onClick={()=> 
