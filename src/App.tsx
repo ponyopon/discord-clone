@@ -33,7 +33,7 @@ const dispatch = useDispatch();
       }
     })
 
-  }, [dispatch]);
+  }, [dispatch]);//dispatchを使ってstoreに通知を送る
   return (
     <div className="App">
       {user ? 

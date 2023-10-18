@@ -7,7 +7,7 @@ const initialState : InitialChannelState = {
 }
 
 export const channelSlice = createSlice({
-    name:"user",
+    name:"channel",
     initialState:initialState,
     reducers:{
     setChannelInfo: (state,action) => {
